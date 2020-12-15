@@ -26,6 +26,7 @@ services:
       discovery.type: single-node
     networks:
       - elk
+    restart: always
 
   logstash:
     container_name: logstash
@@ -54,6 +55,7 @@ services:
       - elk
     depends_on:
       - elasticsearch
+    restart: always
 
   kibana:
     container_name: kibana
@@ -72,6 +74,7 @@ services:
       - elk
     depends_on:
       - elasticsearch
+    restart: always
 
 networks:
   elk:
