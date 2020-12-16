@@ -57,6 +57,19 @@ services:
       mode: replicated
       replicas: 1
 
+  apm-server:
+    image: docker.elastic.co/apm/apm-server:7.10.0
+    ports:
+      - "8200:8200"
+    configs:
+      - source: apm-server_config
+        target: /usr/share/apm-server/apm-server.yml
+    networks:
+      - elk
+    deploy:
+      mode: replicated
+      replicas: 1
+
 configs:
 
   elastic_config:
@@ -67,6 +80,8 @@ configs:
     file: ./logstash/pipeline/logstash.conf
   kibana_config:
     file: ./kibana/config/kibana.yml
+  apm-server_config:
+    file: ./extensions/apm-server/config/apm-server.yml
 
 networks:
   elk:
